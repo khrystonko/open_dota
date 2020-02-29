@@ -1,6 +1,6 @@
 <?php
 
-namespace ContainerFZCxQvF;
+namespace ContainerH4lZg7g;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -38,6 +38,8 @@ class srcApp_KernelDevDebugContainer extends Container
             'kernel' => true,
         ];
         $this->methodMap = [
+            'App\\Controller\\HeroController' => 'getHeroControllerService',
+            'App\\Controller\\Hero\\MatchController' => 'getMatchControllerService',
             'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController' => 'getRedirectControllerService',
             'Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController' => 'getTemplateControllerService',
             'cache.app' => 'getCache_AppService',
@@ -84,6 +86,12 @@ class srcApp_KernelDevDebugContainer extends Container
             include_once \dirname(__DIR__, 4).'/vendor/symfony/framework-bundle/EventListener/ResolveControllerNameSubscriber.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/http-kernel/EventListener/DisallowRobotsIndexingListener.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/http-kernel/EventListener/ErrorListener.php';
+            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ParameterBagInterface.php';
+            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ParameterBag.php';
+            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/FrozenParameterBag.php';
+            include_once \dirname(__DIR__, 4).'/vendor/psr/container/src/ContainerInterface.php';
+            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ContainerBagInterface.php';
+            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ContainerBag.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/event-dispatcher-contracts/EventDispatcherInterface.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/event-dispatcher/EventDispatcherInterface.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/event-dispatcher/EventDispatcher.php';
@@ -97,7 +105,6 @@ class srcApp_KernelDevDebugContainer extends Container
             include_once \dirname(__DIR__, 4).'/vendor/symfony/http-foundation/RequestStack.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/http-kernel/EventListener/AbstractSessionListener.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/http-kernel/EventListener/SessionListener.php';
-            include_once \dirname(__DIR__, 4).'/vendor/psr/container/src/ContainerInterface.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/service-contracts/ServiceProviderInterface.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/service-contracts/ServiceLocatorTrait.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ServiceLocator.php';
@@ -157,11 +164,6 @@ class srcApp_KernelDevDebugContainer extends Container
             include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ServiceSubscriberInterface.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/framework-bundle/DependencyInjection/CompatibilityServiceSubscriberInterface.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/framework-bundle/Routing/Router.php';
-            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ParameterBagInterface.php';
-            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ParameterBag.php';
-            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/FrozenParameterBag.php';
-            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ContainerBagInterface.php';
-            include_once \dirname(__DIR__, 4).'/vendor/symfony/dependency-injection/ParameterBag/ContainerBag.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/config/ConfigCacheFactoryInterface.php';
             include_once \dirname(__DIR__, 4).'/vendor/symfony/config/ResourceCheckerConfigCacheFactory.php';
         };
@@ -180,6 +182,44 @@ class srcApp_KernelDevDebugContainer extends Container
     public function getRemovedIds(): array
     {
         return require $this->containerDir.\DIRECTORY_SEPARATOR.'removed-ids.php';
+    }
+
+    /**
+     * Gets the public 'App\Controller\HeroController' shared autowired service.
+     *
+     * @return \App\Controller\HeroController
+     */
+    protected function getHeroControllerService()
+    {
+        include_once \dirname(__DIR__, 4).'/vendor/symfony/framework-bundle/Controller/ControllerTrait.php';
+        include_once \dirname(__DIR__, 4).'/vendor/symfony/framework-bundle/Controller/AbstractController.php';
+        include_once \dirname(__DIR__, 4).'/src/Controller/HeroController.php';
+        include_once \dirname(__DIR__, 4).'/src/Services/OpenDotaService.php';
+
+        $this->services['App\\Controller\\HeroController'] = $instance = new \App\Controller\HeroController(($this->privates['App\\Services\\OpenDotaService'] ?? ($this->privates['App\\Services\\OpenDotaService'] = new \App\Services\OpenDotaService())));
+
+        $instance->setContainer(($this->privates['.service_locator.vdmMuyE'] ?? $this->get_ServiceLocator_VdmMuyEService())->withContext('App\\Controller\\HeroController', $this));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'App\Controller\Hero\MatchController' shared autowired service.
+     *
+     * @return \App\Controller\Hero\MatchController
+     */
+    protected function getMatchControllerService()
+    {
+        include_once \dirname(__DIR__, 4).'/vendor/symfony/framework-bundle/Controller/ControllerTrait.php';
+        include_once \dirname(__DIR__, 4).'/vendor/symfony/framework-bundle/Controller/AbstractController.php';
+        include_once \dirname(__DIR__, 4).'/src/Controller/Hero/MatchController.php';
+        include_once \dirname(__DIR__, 4).'/src/Services/OpenDotaService.php';
+
+        $this->services['App\\Controller\\Hero\\MatchController'] = $instance = new \App\Controller\Hero\MatchController(($this->privates['App\\Services\\OpenDotaService'] ?? ($this->privates['App\\Services\\OpenDotaService'] = new \App\Services\OpenDotaService())));
+
+        $instance->setContainer(($this->privates['.service_locator.vdmMuyE'] ?? $this->get_ServiceLocator_VdmMuyEService())->withContext('App\\Controller\\Hero\\MatchController', $this));
+
+        return $instance;
     }
 
     /**
@@ -232,7 +272,7 @@ class srcApp_KernelDevDebugContainer extends Container
         include_once \dirname(__DIR__, 4).'/vendor/symfony/cache/Marshaller/MarshallerInterface.php';
         include_once \dirname(__DIR__, 4).'/vendor/symfony/cache/Marshaller/DefaultMarshaller.php';
 
-        $this->services['cache.app'] = $instance = new \Symfony\Component\Cache\Adapter\FilesystemAdapter('hj2VGAw3IG', 0, ($this->targetDir.''.'/pools'), new \Symfony\Component\Cache\Marshaller\DefaultMarshaller(NULL));
+        $this->services['cache.app'] = $instance = new \Symfony\Component\Cache\Adapter\FilesystemAdapter('-jcPI+-Dl+', 0, ($this->targetDir.''.'/pools'), new \Symfony\Component\Cache\Marshaller\DefaultMarshaller(NULL));
 
         $instance->setLogger(($this->privates['logger'] ?? ($this->privates['logger'] = new \Symfony\Component\HttpKernel\Log\Logger())));
 
@@ -285,7 +325,7 @@ class srcApp_KernelDevDebugContainer extends Container
         include_once \dirname(__DIR__, 4).'/vendor/symfony/cache/Traits/ContractsTrait.php';
         include_once \dirname(__DIR__, 4).'/vendor/symfony/cache/Adapter/AbstractAdapter.php';
 
-        return $this->services['cache.system'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('n1sF44sn8E', 0, $this->getParameter('container.build_id'), ($this->targetDir.''.'/pools'), ($this->privates['logger'] ?? ($this->privates['logger'] = new \Symfony\Component\HttpKernel\Log\Logger())));
+        return $this->services['cache.system'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('KcoEoby2dd', 0, $this->getParameter('container.build_id'), ($this->targetDir.''.'/pools'), ($this->privates['logger'] ?? ($this->privates['logger'] = new \Symfony\Component\HttpKernel\Log\Logger())));
     }
 
     /**
@@ -616,7 +656,7 @@ class srcApp_KernelDevDebugContainer extends Container
             'routing.loader' => ['services', 'routing.loader', 'getRouting_LoaderService', false],
         ], [
             'routing.loader' => 'Symfony\\Component\\Config\\Loader\\LoaderInterface',
-        ]))->withContext('router.default', $this), 'kernel::loadRoutes', ['cache_dir' => $this->targetDir.'', 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\CompiledUrlGeneratorDumper', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\CompiledUrlMatcherDumper', 'strict_requirements' => true, 'resource_type' => 'service'], ($this->privates['router.request_context'] ?? $this->getRouter_RequestContextService()), new \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag($this), ($this->privates['logger'] ?? ($this->privates['logger'] = new \Symfony\Component\HttpKernel\Log\Logger())), 'en');
+        ]))->withContext('router.default', $this), 'kernel::loadRoutes', ['cache_dir' => $this->targetDir.'', 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\CompiledUrlGeneratorDumper', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\CompiledUrlMatcherDumper', 'strict_requirements' => true, 'resource_type' => 'service'], ($this->privates['router.request_context'] ?? $this->getRouter_RequestContextService()), ($this->privates['parameter_bag'] ?? ($this->privates['parameter_bag'] = new \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag($this))), ($this->privates['logger'] ?? ($this->privates['logger'] = new \Symfony\Component\HttpKernel\Log\Logger())), 'en');
 
         $instance->setConfigCacheFactory(new \Symfony\Component\Config\ResourceCheckerConfigCacheFactory(new RewindableGenerator(function () {
             yield 0 => ($this->privates['dependency_injection.config.container_parameters_resource_checker'] ?? ($this->privates['dependency_injection.config.container_parameters_resource_checker'] = new \Symfony\Component\DependencyInjection\Config\ContainerParametersResourceChecker($this)));
@@ -812,6 +852,30 @@ class srcApp_KernelDevDebugContainer extends Container
     protected function get_LegacyResolveControllerNameSubscriberService()
     {
         return $this->privates['.legacy_resolve_controller_name_subscriber'] = new \Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerNameSubscriber(($this->privates['.legacy_controller_name_converter'] ?? ($this->privates['.legacy_controller_name_converter'] = new \Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser(($this->services['kernel'] ?? $this->get('kernel', 1)), false))), false);
+    }
+
+    /**
+     * Gets the private '.service_locator.vdmMuyE' shared service.
+     *
+     * @return \Symfony\Component\DependencyInjection\ServiceLocator
+     */
+    protected function get_ServiceLocator_VdmMuyEService()
+    {
+        return $this->privates['.service_locator.vdmMuyE'] = new \Symfony\Component\DependencyInjection\Argument\ServiceLocator($this->getService, [
+            'http_kernel' => ['services', 'http_kernel', 'getHttpKernelService', false],
+            'parameter_bag' => ['privates', 'parameter_bag', 'getParameterBagService', false],
+            'request_stack' => ['services', 'request_stack', 'getRequestStackService', false],
+            'router' => ['services', 'router', 'getRouterService', false],
+            'session' => ['services', 'session', 'getSessionService', false],
+            'twig' => ['services', 'twig', 'getTwigService', false],
+        ], [
+            'http_kernel' => '?',
+            'parameter_bag' => '?',
+            'request_stack' => '?',
+            'router' => '?',
+            'session' => '?',
+            'twig' => '?',
+        ]);
     }
 
     /**
@@ -1352,6 +1416,16 @@ class srcApp_KernelDevDebugContainer extends Container
     protected function getLocaleListenerService()
     {
         return $this->privates['locale_listener'] = new \Symfony\Component\HttpKernel\EventListener\LocaleListener(($this->services['request_stack'] ?? ($this->services['request_stack'] = new \Symfony\Component\HttpFoundation\RequestStack())), 'en', ($this->services['router'] ?? $this->getRouterService()));
+    }
+
+    /**
+     * Gets the private 'parameter_bag' shared service.
+     *
+     * @return \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag
+     */
+    protected function getParameterBagService()
+    {
+        return $this->privates['parameter_bag'] = new \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag($this);
     }
 
     /**

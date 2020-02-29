@@ -4,4 +4,7 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format'], ['variable', '/', '\\d+', 'code'], ['text', '/_error']], [], []],
+    'app_hero_match_index' => [['id'], ['_controller' => 'App\\Controller\\Hero\\MatchController::index'], [], [['text', '/matches'], ['variable', '/', '[^/]++', 'id'], ['text', '/heroes']], [], []],
+    'app_hero_match_show' => [['id'], ['_controller' => 'App\\Controller\\Hero\\MatchController::show'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/matches']], [], []],
+    'app_hero_index' => [[], ['_controller' => 'App\\Controller\\HeroController::index'], [], [['text', '/heroes']], [], []],
 ];
