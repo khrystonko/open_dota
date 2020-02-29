@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Heroes list</title>
+    </head>
+    <body>
+    {% for hero in heroes %}
+        {{ hero.id }} <a href="/heroes/{{ hero.id }}/matches">{{ hero.name }}</a><br>
+    {% endfor %}
+    </body>
+</html>

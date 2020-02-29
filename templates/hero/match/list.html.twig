@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Matches list</title>
+    </head>
+    <body>
+    {% for match in list %}
+        {{ match.match_id }} <a href="/matches/{{ match.match_id }}">{{ match.league_name }}</a><br>
+    {% endfor %}
+    </body>
+</html>
